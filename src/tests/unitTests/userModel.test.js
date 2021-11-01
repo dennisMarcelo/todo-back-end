@@ -8,6 +8,7 @@ const { getConnection } = require('./connection');
 const userModel = require('../../models/userModel');
 const { DB_NAME } = process.env;
 
+const userId = '614bf57bb41a7734551f85c1';
 const newUser = { 
   name:"joãozinho", 
   email:"jzdofeijao@gmail.com", 
@@ -21,7 +22,7 @@ describe('userModel', () => {
     sinon.stub(MongoClient, 'connect').resolves(connection);
   })
 
-  after(async () => {
+  afterEach(async () => {
     await connection.db(DB_NAME).collection('users').drop();
     MongoClient.connect.restore();
   })
@@ -32,6 +33,28 @@ describe('userModel', () => {
       
       expect(id).to.be.a('object')
       expect(id.toString()).to.have.length(24);
+    });
+  });
+
+  describe('findByEmail function', () => {
+    before(async ()=>{
+      await connection.db(DB_NAME).collection('users')
+        .insertOne({
+          _id: userId,
+          name: newUser.name,
+          email: newUser.email,
+          password: newUser.password
+        });
+    });
+
+    it('return user object with correct information', async () => {
+      const user = await userModel.findByEmail(newUser.email)
+
+      expect(user).to.be.a('object');
+      expect(user).to.have.property('_id').equal(userId);
+      expect(user).to.have.property('name').equal(newUser.name);
+      expect(user).to.have.property('email').equal(newUser.email);
+      expect(user).to.have.property('password').equal(newUser.password);
     });
   });
 });
