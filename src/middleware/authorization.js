@@ -5,7 +5,6 @@ const { JWT_SECRET } = process.env;
 
 const validateJWT = async (req, res, next) => {
   const token = req.headers.authorization;
-
   if (!token) return res.status(401).json({ message: 'token is required' });
 
   try {
@@ -15,7 +14,7 @@ const validateJWT = async (req, res, next) => {
     req.user = { userId, name, email };
     next();
   } catch (err) {
-    return res.status(401).json({ message: err.message });
+    return res.status(401).json({ message: 'jwt malformed' });
   }
 };
 
