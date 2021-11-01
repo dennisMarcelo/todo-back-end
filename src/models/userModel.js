@@ -9,13 +9,20 @@ const getConnectionWithCollection = async () => {
 
 const create = async ({ name, email, password }) => {
   const collection = await getConnectionWithCollection();
-
   const { insertedId: id } = await collection
     .insertOne({ name, email, password });
 
   return id;
 };
 
+const find = async (email) => {
+  const collection = await getConnectionWithCollection();
+  const user = await collection.findOne({ email });
+
+  return user;
+};
+
 module.exports = {
   create,
+  find,
 };
