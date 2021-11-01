@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const tokenGenerator = (userOfDatabase) => {
-  if (typeof userOfDatabase !== 'object') {
+const tokenGenerator = (user) => {
+  if (typeof user !== 'object') {
     throw new Error('The parameter must be a object.');
   }
 
@@ -12,7 +12,7 @@ const tokenGenerator = (userOfDatabase) => {
     algorithm: 'HS256',
   };
 
-  return jwt.sign(userOfDatabase, secretKey, jwtConfig);
+  return jwt.sign(user, secretKey, jwtConfig);
 };
 
 module.exports = {
