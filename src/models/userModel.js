@@ -4,7 +4,7 @@ const mongoConnection = require('./connection');
 
 const getConnectionWithCollection = async () => {
   const connnectionWithCollection = await mongoConnection.getConnection()
-    .then((db) => db.collection('user'));
+    .then((db) => db.collection('users'));
 
   return connnectionWithCollection;
 };
