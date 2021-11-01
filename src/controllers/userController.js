@@ -13,4 +13,10 @@ router.post('/', rescue(async (req, res, next) => {
   res.status(201).json({ message: 'User registered successfully', token });
 }));
 
+router.post('/login', rescue(async (req, res) => {
+  const token = await userService.login(req.body);
+
+  res.status(201).json({ message: 'user authenticated', token });
+}));
+
 module.exports = router;
