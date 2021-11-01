@@ -1,0 +1,21 @@
+const mongoConnection = require('./connection');
+
+const getConnectionWithCollection = async () => {
+  const connnectionWithCollection = await mongoConnection.getConnection()
+    .then((db) => db.collection('user'));
+
+  return connnectionWithCollection;
+};
+
+const create = async ({ name, email, password }) => {
+  const collection = await getConnectionWithCollection();
+
+  const { insertedId: id } = await collection
+    .insertOne({ name, email, password });
+
+  return id;
+};
+
+module.exports = {
+  create,
+};
