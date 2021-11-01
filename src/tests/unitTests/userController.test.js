@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
-const userController = require('../../controllers/userController')
+const userController = require('../../controllers/userController');
 
 describe('userController', () => {
   describe('route POST /user', () => {
