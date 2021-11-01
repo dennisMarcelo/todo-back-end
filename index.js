@@ -4,6 +4,7 @@ require('dotenv').config();
 
 // controllers
 const userController = require('./src/controllers/userController');
+const toDoController = require('./src/controllers/toDoController');
 
 // Middlewares
 const errorMiddleware = require('./src/middleware/error');
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // routes
 app.use('/user', userController);
+app.use('/todo', toDoController);
 
 app.use(errorMiddleware);
 
