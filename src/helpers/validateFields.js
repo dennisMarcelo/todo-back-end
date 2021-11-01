@@ -14,6 +14,18 @@ const newUser = (user) => {
   if (error) throw new CustomError(error.message, 400);
 };
 
+const login = (user) => {
+  const { error } = Joi.object({
+    email: Joi.string().email().not().empty()
+      .required(),
+    password: Joi.string().min(6).not().empty()
+      .required(),
+  }).validate(user);
+
+  if (error) throw new CustomError(error.message, 400);
+};
+
 module.exports = {
   newUser,
+  login,
 };
