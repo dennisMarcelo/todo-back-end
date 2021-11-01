@@ -1,3 +1,4 @@
+const md5 = require('crypto-js/md5');
 const isValid = require('../helpers/validateFields');
 const { tokenGenerator } = require('../helpers/token');
 
@@ -17,6 +18,22 @@ const create = async (newUser) => {
   return token;
 };
 
+const login = async (user) => {
+  // validations
+  isValid.login(user);
+  const userExist = await userModel.findByEmail(user.email);
+  if (!userExist) throw new CustomError('incorrect password or email address', 403);
+  if (userExist.email !== user.email || userExist.password !== md5(user.password).toString()) {
+    throw new CustomError('incorrect password or email address', 403);
+  }
+
+  const { _id, name, email } = userExist;
+  const token = tokenGenerator({ _id, name, email });
+
+  return token;
+};
+
 module.exports = {
   create,
+  login,
 };
