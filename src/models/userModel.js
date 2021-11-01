@@ -15,7 +15,7 @@ const create = async ({ name, email, password }) => {
   return id;
 };
 
-const find = async (email) => {
+const findByEmail = async (email) => {
   const collection = await getConnectionWithCollection();
   const user = await collection.findOne({ email });
 
@@ -24,5 +24,5 @@ const find = async (email) => {
 
 module.exports = {
   create,
-  find,
+  findByEmail,
 };
