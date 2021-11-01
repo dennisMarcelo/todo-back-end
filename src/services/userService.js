@@ -13,7 +13,7 @@ const create = async (newUser) => {
   const id = await userModel.create(newUser);
   const { name, email } = newUser;
 
-  const token = tokenGenerator({ id, name, email });
+  const token = tokenGenerator({ userId: id, name, email });
 
   return token;
 };
