@@ -28,7 +28,7 @@ const login = async (user) => {
   }
 
   const { _id, name, email } = userExist;
-  const token = tokenGenerator({ _id, name, email });
+  const token = tokenGenerator({ userId: _id, name, email });
 
   return token;
 };
