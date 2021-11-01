@@ -25,7 +25,19 @@ const login = (user) => {
   if (error) throw new CustomError(error.message, 400);
 };
 
+const newToDo = (todo) => {
+  const { error } = Joi.object({
+    toDo: Joi.string().string().not().empty()
+      .required(),
+    toDoStatus: Joi.string().min(5).not().empty()
+      .required(),
+  }).validate(todo);
+
+  if (error) throw new CustomError(error.message, 400);
+};
+
 module.exports = {
   newUser,
   login,
+  newToDo,
 };
