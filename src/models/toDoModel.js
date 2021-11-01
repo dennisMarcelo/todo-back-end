@@ -8,7 +8,7 @@ const getConnectionWithCollection = async () => {
 };
 
 const create = async ({ userId, toDo, toDoStatus, creationDate }) => {
-  const collection = getConnectionWithCollection();
+  const collection = await getConnectionWithCollection();
   const { insertedId: id } = await collection
     .insertOne({ userId, toDo, toDoStatus, creationDate });
 
