@@ -27,4 +27,10 @@ router.delete('/:id', validateJWT, rescue(async (req, res) => {
   res.status(200).json({ message: 'removed', toDo });
 }));
 
+router.put('/', validateJWT, rescue(async (req, res) => {
+  const toDo = await toDoService.update(req.body);
+
+  res.status(200).json({ message: 'updated', toDo });
+}));
+
 module.exports = router;
