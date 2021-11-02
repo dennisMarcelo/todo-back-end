@@ -17,6 +17,14 @@ const create = async ({ userId, toDo, toDoStatus, creationDate }) => {
   };
 };
 
+const findAll = async (userId) => {
+  const collection = await getConnectionWithCollection();
+  const toDos = await collection.find({}, { where: { userId } }).toArray();
+
+  return toDos;
+};
+
 module.exports = {
   create,
+  findAll,
 };
