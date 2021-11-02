@@ -32,8 +32,18 @@ const findById = async (id) => {
   return toDo;
 };
 
+const remove = async (id) => {
+  const collection = await getConnectionWithCollection();
+  const { result } = await collection.delete({ _id: ObjectId(id) });
+
+  if (result.n > 0) return true;
+
+  return false;
+};
+
 module.exports = {
   create,
   findAll,
   findById,
+  remove,
 };
