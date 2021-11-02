@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const CustomError = require('../helpers/CustomError');
 const mongoConnection = require('./connection');
 
 const getConnectionWithCollection = async () => {
@@ -41,9 +42,25 @@ const remove = async (id) => {
   return false;
 };
 
+const update = async ({ _id, toDo, toDoStatus }) => {
+  const collection = await getConnectionWithCollection();
+  const { modifiedCount } = await collection.updateOne(
+    { _id: ObjectId(_id) },
+    {
+      $set: {
+        toDo,
+        toDoStatus,
+      },
+    },
+  );
+
+  if (modifiedCount < 1) throw new CustomError('not updated', 500);
+};
+
 module.exports = {
   create,
   findAll,
   findById,
   remove,
+  update,
 };
