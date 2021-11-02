@@ -30,8 +30,16 @@ const remove = async (id, user) => {
   return toDo;
 };
 
+const update = async (updatedToDo) => {
+  isValid.updatedToDo(updatedToDo);
+  await toDoModel.update(updatedToDo);
+
+  return updatedToDo;
+};
+
 module.exports = {
   create,
   findAll,
   remove,
+  update,
 };
