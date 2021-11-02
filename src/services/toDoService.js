@@ -10,6 +10,13 @@ const create = async (newToDo, user) => {
   return toDo;
 };
 
+const findAll = async (userId) => {
+  const toDos = await toDoModel.findAll(userId);
+
+  return toDos;
+};
+
 module.exports = {
   create,
+  findAll,
 };
