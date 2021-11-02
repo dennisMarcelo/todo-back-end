@@ -7,7 +7,8 @@
     "test": "test",
     "start": "node index.js",
     "start:dev": "nodemon index.js",
-    "test:mocha": "clear; nyc --all --include src/models --include src/services --include src/controllers mocha ./src/tests/unitTests/*.js --exit"
+    "test:unit": "clear; nyc --all --include src/models --include src/services --include src/controllers mocha ./src/tests/unitTests/*.test.js --exit",
+    "test:integration": "clear; mocha ./src/tests/integrationTests/"
   },
   "author": "Dennis Marcelo Dos Santos",
   "license": "ISC",
