@@ -19,13 +19,15 @@ const findAll = async (userId) => {
 
 const remove = async (id, user) => {
   const toDo = await toDoModel.findById(id);
-  if (!toDo) throw new CustomError('Not exist this to-do');
-  if (toDo.userId !== user.id) {
+  if (!toDo) throw new CustomError('Not exist this to-do', 404);
+  if (toDo.userId !== user.userId) {
     throw new CustomError('You not have authorization to remove this to-do', 401);
   }
 
   const isRemoved = await toDoModel.remove(id);
-  return isRemoved;
+  if (!isRemoved) throw new CustomError('Not removed', 500);
+
+  return toDo;
 };
 
 module.exports = {
