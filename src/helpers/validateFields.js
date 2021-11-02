@@ -27,7 +27,7 @@ const login = (user) => {
 
 const newToDo = (todo) => {
   const { error } = Joi.object({
-    toDo: Joi.string().string().not().empty()
+    toDo: Joi.string().not().empty()
       .required(),
     toDoStatus: Joi.string().min(5).not().empty()
       .required(),
