@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const mongoConnection = require('./connection');
 
 const getConnectionWithCollection = async () => {
@@ -24,7 +25,15 @@ const findAll = async (userId) => {
   return toDos;
 };
 
+const findById = async (id) => {
+  const collection = await getConnectionWithCollection();
+  const toDo = await collection.findOne(ObjectId(id));
+
+  return toDo;
+};
+
 module.exports = {
   create,
   findAll,
+  findById,
 };
