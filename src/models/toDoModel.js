@@ -34,9 +34,9 @@ const findById = async (id) => {
 
 const remove = async (id) => {
   const collection = await getConnectionWithCollection();
-  const { result } = await collection.delete({ _id: ObjectId(id) });
+  const { deletedCount } = await collection.deleteOne({ _id: ObjectId(id) });
 
-  if (result.n > 0) return true;
+  if (deletedCount > 0) return true;
 
   return false;
 };
