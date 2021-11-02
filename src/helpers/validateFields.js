@@ -36,8 +36,24 @@ const newToDo = (todo) => {
   if (error) throw new CustomError(error.message, 400);
 };
 
+const updatedToDo = (todo) => {
+  const { error } = Joi.object({
+    _id: Joi.string().length(24).not().empty()
+      .required(),
+    userId: Joi.string().length(24).not().empty()
+      .required(),
+    toDo: Joi.string().not().empty()
+      .required(),
+    toDoStatus: Joi.string().min(5).not().empty()
+      .required(),
+  }).validate(todo);
+
+  if (error) throw new CustomError(error.message, 400);
+};
+
 module.exports = {
   newUser,
   login,
   newToDo,
+  updatedToDo,
 };
