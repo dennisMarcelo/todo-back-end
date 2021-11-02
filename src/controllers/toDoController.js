@@ -12,4 +12,11 @@ router.post('/', validateJWT, rescue(async (req, res) => {
   res.status(201).json({ message: 'ToDo created successfully', toDo });
 }));
 
+router.get('/', validateJWT, rescue(async (req, res) => {
+  const { userId } = req.user;
+  const toDos = await toDoService.findAll(userId);
+
+  res.status(200).json({ toDos });
+}));
+
 module.exports = router;
